@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { TextInput, Switch, Button } from "react-native-paper";
 import { useState } from "react";
 import axios from "axios";
+import * as SecureStore from 'expo-secure-store';
 
 type User = {
   firstName: string;
@@ -33,6 +34,9 @@ export default function App() {
     try {
       const res = await axios.post("http://10.100.208.53:8080/auth/signup", user);
       console.log(res.data);
+      if (res.data.token) {
+        await SecureStore.setItemAsync('userToken', res.data.token);
+      }
       alert("user created successfully")
     } catch (error: unknown) {
       console.error("Error:", error);
