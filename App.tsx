@@ -32,7 +32,10 @@ export default function App() {
     };
     console.log(user);
     try {
+
       const res = await axios.post("http://10.100.208.53:8080/auth/signup", user);
+      // Recuerden cambiar esto "10.100.208.53" por la ip que les aparece cuando
+      // corren npx expo start donde dice Metro waiting on exp://"10.100.208.53":8081
       console.log(res.data);
       if (res.data.token) {
         await SecureStore.setItemAsync('userToken', res.data.token);
@@ -72,7 +75,7 @@ export default function App() {
         <Switch value={isAdmin} onValueChange={onToggleSwitch} />
       </View>
       <Button
-        style={{ marginTop: 20 }}
+        style={styles.button}
         icon="account"
         mode="contained"
         onPress={handlePress}
@@ -95,17 +98,30 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    textAlign: "center",
+    color: "#333",textAlign: "center",
   },
   input: {
-    marginBottom: 15,
+    marginBottom: 15,marginBottom: 15,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    padding: 10,
+    borderColor: "#ddd",enter",
+    borderWidth: 1,marginTop: 20,
   },
   switchContainer: {
-    flexDirection: "row",
+    flexDirection: "row",marginRight: 10,
     alignItems: "center",
     marginTop: 20,
   },
   switchLabel: {
     marginRight: 10,
+    fontSize: 16,
   },
+  button: {
+    marginTop: 20,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "#6200ee",
+  },
+});,
 });
