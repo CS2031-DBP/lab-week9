@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { TextInput, Switch, Button } from "react-native-paper";
 import { useState } from "react";
+import axios from "axios";
 
 type User = {
   firstName: string;
@@ -20,7 +21,7 @@ export default function App() {
 
   const onToggleSwitch = () => setIsAdmin(!isAdmin);
 
-  const handlePress = () => {
+  const handlePress = async () => {
     const user: User = {
       firstName,
       lastName,
@@ -29,6 +30,13 @@ export default function App() {
       role: isAdmin ? 1 : 0,
     };
     console.log(user);
+    try {
+      const res = await axios.post("http://10.100.208.53:8080/auth/signup", user);
+      console.log(res.data);
+      alert("user created successfully")
+    } catch (error: unknown) {
+      console.error("Error:", error);
+    }
   };
 
   return (
